@@ -90,11 +90,6 @@ apt-get update && apt-get install -y libgl1
   ```
 * Verwijder eventueel oude containers
 
-***
-
-# ❌ Oude methode (niet meer nodig)
-
-De conda/mamba setup is **niet meer nodig** en wordt niet meer gebruikt.
 
 # 🧪 Oefeningen
 
