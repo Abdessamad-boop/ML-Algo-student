@@ -96,4 +96,23 @@ apt-get update && apt-get install -y libgl1
 
 De conda/mamba setup is **niet meer nodig** en wordt niet meer gebruikt.
 
+# 🧪 Oefeningen
+
+## Fork de repository
+
+1. **Fork** deze repository naar je eigen GitHub-account via de **Fork**-knop rechtsboven.
+2. **Clone** jouw fork naar je lokale machine.
+3. Werk de oefeningen uit in de notebooks en **commit & push** je oplossingen naar jouw fork.
+
+## Automatische feedback (via GitHub Actions)
+
+Na elke push wordt er via **GitHub Actions** automatisch een testbestand gedraaid.  
+Dit is **geen formeel examen** of officiële evaluatie, maar een **hulpmiddel** om je te begeleiden — vooral als je deelneemt aan het oefeningenmoment.
+
+- De tests controleren of je oplossingen correct zijn.
+- Je krijgt feedback in de **Actions**-tab van jouw fork op GitHub.
+- Gebruik deze feedback om je code te verbeteren.
+
+> ⚠️ **Experimentele opzet**  
+> Dit systeem wordt stap voor stap uitgerold en kan nog wijzigen. Laat gerust weten als je problemen tegenkomt of suggesties hebt.
 ***
