@@ -37,10 +37,92 @@ flowchart LR
 ```
 
 ---
+---
+<!-- _class: red-bg -->
+## Scikit-learn
+
+De standaard ML-bibliotheek voor Python
+
+---
+
+## Wat is scikit-learn?
+
+- **Bekendste ML-bibliotheek** voor Python — gebouwd op NumPy & SciPy
+- **Wat kan het?**
+  - Classificatie (o.a. Naive Bayes, KNN, SVM, …)
+  - Regressie
+  - Clustering
+  - Dimensionality reduction
+  - Preprocessing & feature engineering
+  - Model selectie & evaluatie (cross-validatie, metrics)
+
+---
+
+- **Open source** (BSD-licentie) — gratis, ook voor commercieel gebruik
+  - Ontwikkeld door INRIA (Frans onderzoeksinstituut) en de community
+  - Volledige broncode op GitHub
+  - Actieve community, uitgebreide documentatie
+
+---
+
+## Consistent API: één patroon voor élk algoritme
+
+Elk schattingsalgoritme ("estimator") in scikit-learn volgt dezelfde structuur:
+
+```python
+from sklearn.xxxx import SomeModel
+
+model = SomeModel(hyperparameter=waarde)  # 1. Maak model
+model.fit(X, y)                          # 2. Leer uit data
+model.predict(X_new)                     # 3. Voorspel
+model.score(X_test, y_test)              # 4. Evalueer
+```
+
+```mermaid
+flowchart LR
+    A["Model maken"] --> B[".fit(X, y)"]
+    B --> C[".predict(X_new)"]
+    C --> D[".score(X_test, y_test)"]
+```
+
+> **Waarom?** Eén patroon leren = **alle** algoritmes in deze cursus kunnen gebruiken!
+
+---
+
+## ... en nog meer herbruikbare methodes
+
+| Methode | Gebruik | Voorbeeld |
+|---------|---------|-----------|
+| `.fit(X, y)` | Train het model | `knn.fit(X_train, y_train)` |
+| `.predict(X)` | Voorspel labels | `knn.predict(X_test)` |
+| `.score(X, y)` | Bereken nauwkeurigheid | `knn.score(X_test, y_test)` |
+| `.transform(X)` | Transformeer data (preprocessing) | `scaler.transform(X_test)` |
+| `.fit_transform(X)` | Fit + transform in één stap | `scaler.fit_transform(X_train)` |
+
+> **Opgelet:** `.fit()` en `.predict()` zijn **altijd** beschikbaar voor supervised modellen; `.transform()` enkel voor preprocessing / unsupervised.
+
+---
 <!-- _class: red-bg -->
 ## Naive Bayes
 
 Een eerste classifier
+
+---
+
+## Naive Bayes — historische noot
+
+- **Thomas Bayes (1701–1761)** — Engelse predikant en wiskundige
+  - Zijn stelling werd **postuum** gepubliceerd in 1763 door zijn vriend Richard Price
+- **Pierre-Simon Laplace (1749–1827)** — Franse wiskundige
+  - Herontdekte en generaliseerde Bayes' werk onafhankelijk → **Bayes–Laplace-stelling**
+
+---
+- **Eerste ML-toepassing:** M.E. Maron (1961) gebruikte Naive Bayes voor automatische indexering van documenten
+  - [doi.org/10.1145/321075.321084](https://doi.org/10.1145/321075.321084)
+- **Spamfilter-revolutie (jaren 1990–2000):** Naive Bayes werd de standaard voor e-mail filtering
+  - Sahami et al., 1998: [aaai.org/Papers/Workshops/1998/WS-98-05/WS98-05-004.pdf](https://www.aaai.org/Papers/Workshops/1998/WS-98-05/WS98-05-004.pdf)
+  - Graham, 2002: [paulgraham.com/spam.html](https://paulgraham.com/spam.html)
+- **Waarom "naief"?** — De aanname van onafhankelijkheid is al sinds de jaren 1960 gekend als *onrealistisch*, toch blijft de classifier verrassend goed presteren 🎯
 
 ---
 
@@ -208,6 +290,21 @@ clf.predict(X[2:3])
 ---
 <!-- _class: red-bg -->
 ## K-Nearest Neighbours (KNN)
+
+---
+## KNN — historische noot
+
+- **Fix & Hodges (1951)** — Eerste beschrijving van het "nearest neighbor"-beslissingsregel
+  - US Air Force technisch rapport: een **niet-parametrische** classifier — geen aannames over de onderliggende verdeling
+  - Zie: [en.wikipedia.org/wiki/K-nearest_neighbors_algorithm](https://en.wikipedia.org/wiki/K-nearest_neighbors_algorithm)
+- **Cover & Hart (1967)** — Baanbrekend artikel "Nearest neighbor pattern classification"
+---
+  - Bewezen: met voldoende data is de fout van 1-NN **hoogstens 2× de Bayes-optimale fout**
+  - [doi.org/10.1109/TIT.1967.1053964](https://doi.org/10.1109/TIT.1967.1053964)
+- **"Lazy learning"** — al in de jaren 1950 gekend: geen echte trainingsfase, alle data wordt opgeslagen
+- **1990–2010** — KNN breed toegepast in patroonherkenning, beeldclassificatie en aanbevelingssystemen (collaborative filtering)
+
+> 📌 KNN is één van de **oudste** en **simpelste** ML-algoritmes — maar nog steeds relevant!
 
 ---
 
