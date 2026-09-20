@@ -11,213 +11,301 @@ paginate: true
 
 ---
 
-## Herhalen
+<!-- _class: red-bg -->
+# Herhalen
 
 ---
 
 ## Wat weten jullie hier nog over ?
 
-• Classificatie
-• Clustering
-• Supervised (begeleid) vs unsupervised (onbegeleid)
-• Underfitting, overfitting
-• Train/test/validation data
-• Cross validatie
+- Classificatie vs Clustering
+- Supervised (begeleid) vs Unsupervised (onbegeleid)
+- Underfitting & Overfitting
+- Train / Test / Validation data
+- Cross-validatie
 
 ---
 
+```mermaid
+flowchart LR
+    Data["Dataset"] --> Split["Split 80/20"]
+    Split --> Train["Train set"]
+    Split --> Test["Test set"]
+    Train --> CV["Cross-validatie<br/>(bv. 5-fold)"]
+    CV --> Model["Getraind model"]
+    Model --> Eval["Evalueren op test set"]
+```
+
+---
+<!-- _class: red-bg -->
 ## Naive Bayes
 
 Een eerste classifier
 
 ---
 
-## Conditionele kans = voorwaardelijke kans
+## Conditionele kans (voorwaardelijke kans)
 
-• : de kans op A als B al is gebeurd – voorwaardelijke kans
-• Definitie:
-௉ሺ஺ & ஻ሻ
-௉ሺ஻ሻ
-• Voorbeeld:
-• Kans op 2 keer zes gooien = 1/36 = P(A en B)
-• Kans op 1 keer zes gooien = 1/6 = P(B)
-• Dus de kans om 2 keer zes te gooien als je al eens 6 hebt gegooid =
-ଵ/ଷ଺
-ଵ/଺
-ଵ
-଺
+- $P(A \mid B)$: kans op **A** als **B** al gebeurd is
+
+- **Definitie:**
+  $$P(A \mid B) = \frac{P(A \cap B)}{P(B)}$$
+
+- **Voorbeeld — Dobbelsteen:**
+  - $P(\text{twee keer zes}) = 1/36 = P(A \cap B)$
+  - $P(\text{één keer zes}) = 1/6 = P(B)$
+  - $P(\text{twee keer zes} \mid \text{al één keer zes}) = \frac{1/36}{1/6} = \frac{1}{6}$
 
 ---
 
-## Regel van Bayes
+## Regel van Bayes — formule
 
-• Regel van Bayes
-• 𝑃𝐴𝐵ൌ
-௉𝐵𝐴௉ሺ஺ሻ
-௉ሺ஻ሻ
-• In de context van Machine
-Learning, is
-• B : data, feiten
-• A : een classificatielabel dat we willen toekennen
-• Dus: we willen
-𝑃label  dataሻberekenen
-• : de kans op A als B al is gebeurd – voorwaardelijke kans
-• De kans kan ook worden uitgewerkt als:
-• Deze laatste heb je in de praktijk nodig om dingen uit te rekenen
+$$P(A \mid B) = \frac{P(B \mid A) \; P(A)}{P(B)}$$
+
+Alternatieve vorm (handig in de praktijk):
+
+$$P(A \mid B) = \frac{P(B \mid A) \, P(A)}
+            {P(B \mid A) P(A) + P(B \mid \neg A) P(\neg A)}$$
+
+---
+# Bayes Rule flow
+
+```mermaid
+flowchart LR
+    A["P(B|A)"] --> C["P(B|A) · P(A)"]
+    B["P(A)"] --> C
+    C --> D[/"P(A|B)"\]
+    E["P(B)"] --> D
+```
 
 ---
 
-## Ham of spam ?
+## Regel van Bayes — in ML-context
+
+- **B** = data / feiten (de e-mail)
+- **A** = het classificatielabel dat we willen toekennen (spam / ham)
+
+We willen dus berekenen:
+
+$$P(\text{label} \mid \text{data})$$
+
+> "Wat is de kans op dit label, **gegeven** de data die we zien?"
 
 ---
 
-## Classificatie met een Naive Bayes filter (1)
+## Spamfilter — probleemstelling
 
-• We willen een spam filter bouwen. De filter heeft als doel om e-mails te controleren op tekst, en dan te labelen als ‘spam’ of ‘geen spam’.
-• We hebben volgende gegevens:
-• We weten uit vorige spam emails dat 40% van de spam emails het woord ‘moneytransfer’ bevatten
-• We weten dat in echte emails slechts in 0.01% van de gevallen dat woord bevatten
-• We weten ook dat circa 45% van alle emails spam is
+We bouwen een **spamfilter** dat e-mails labelt als **'spam'** of **'geen spam'**.
 
----
+**Gegeven:**
+- $P(\text{moneytransfer} \mid \text{spam}) = 0.4 \quad$ (40% van spam bevat 'moneytransfer')
+- $P(\text{moneytransfer} \mid \neg\text{spam}) = 0.0001 \quad$ (0.01% van ham bevat het)
+- $P(\text{spam}) = 0.45 \quad$ (45% van alle e-mail is spam)
 
-## Moneytransfer -> Spam ?
-
-•
-•
-•
-• Bayes:
-௉
-௉ሺ௦ሻ
-௉
-௉௦ା௉
-௉ሺ൓௦ሻ
-• De classifier kiest het label met de grootste kans, in ons geval spam
-• In Python: demo
+**Vraag:** Een e-mail bevat 'moneytransfer' — is het spam?
 
 ---
 
-## Meerdere woorden screenen
-
-• 𝑃𝑚𝑜𝑛𝑒𝑦𝑡𝑟𝑎𝑛𝑠𝑓𝑒𝑟 𝑠𝑝𝑎𝑚ሻൌ
-0.4
-• 𝑃𝑚𝑜𝑛𝑒𝑦𝑡𝑟𝑎𝑛𝑠𝑓𝑒𝑟 ൓𝑠𝑝𝑎𝑚ሻൌ
-0.0001
-• 𝑃𝑢𝑔𝑎𝑛𝑑𝑎 𝑠𝑝𝑎𝑚ሻൌ0.1
-• 𝑃𝑢𝑔𝑎𝑛𝑑𝑎 ൓𝑠𝑝𝑎𝑚ሻൌ0.05
-• 𝑃ሺ𝑠𝑝𝑎𝑚ሻൌ0.45
-• 𝑃𝐴𝑃 𝐻𝑜𝑔𝑒𝑠𝑐ℎ𝑜𝑜𝑙 𝑠𝑝𝑎𝑚ሻൌ
-0.001
-• 𝑃𝐴𝑃 𝐻𝑜𝑔𝑒𝑠𝑐ℎ𝑜𝑜𝑙 ൓𝑠𝑝𝑎𝑚ሻൌ
-0.3
-• Wat is de kans op spam als de email niet ‘moneytransfer’, maar wel ‘uganda’ en ‘AP
-Hogeschool’ bevat ?
+```mermaid
+flowchart TD
+    Email["Email ontvangen"] --> Check{"Bevat 'moneytransfer'?"}
+    Check -- Ja --> Bereken["Bereken P(spam|mt)<br/>en P(¬spam|mt)"]
+    Check -- Nee --> Next["Check volgende woorden"]
+    Bereken --> Kies{"Welke kans is groter?"}
+    Kies -- Spam --> LabelS["🚫 SPAM"]
+    Kies -- Ham --> LabelH["✅ HAM"]
+```
 
 ---
 
-## Meerdere datapunten
+## Moneytransfer → Spam?
 
-• 𝑃𝑠𝑝𝑎𝑚  ൓𝑚𝑜 & 𝑢𝑔 & 𝑎𝑝ሻൌ
-௉൓௠௢ & ௨௚ & ௔௣  ௦௣௔௠ሻ௉ሺ௦௣௔௠ሻ
-⋯
-• ൌ ௉൓𝑚𝑜𝑠𝑝𝑎𝑚௉𝑢𝑔𝑠𝑝𝑎𝑚௉𝑎𝑝𝑠𝑝𝑎𝑚௉ሺ௦௣௔௠ሻ
-⋯
-• Ik kan nu ook kijken naar geen spam:
-• ௉൓𝑚𝑜൓𝑠𝑝𝑎𝑚௉𝑢𝑔൓𝑠𝑝𝑎𝑚௉𝑎𝑝൓𝑠𝑝𝑎𝑚௉ሺ൓௦௣௔௠ሻ
-⋯
-• Uiteindelijk kies ik het label met de grootste teller: code demo
-Dit hoef ik niet uit te rekenen
+**Berekening via Bayes:**
 
-![](images/Slides_ML_Algorithms_les1_p11_img001.png)
+$$
+\begin{aligned}
+P(\text{spam} \mid \text{mt})
+&= \frac{P(\text{mt} \mid \text{spam}) \, P(\text{spam})}
+        {P(\text{mt} \mid \text{spam}) P(\text{spam}) + P(\text{mt} \mid \neg\text{spam}) P(\neg\text{spam})} \\[6pt]
+&= \frac{0.4 \times 0.45}{0.4 \times 0.45 \;+\; 0.0001 \times 0.55} \\[6pt]
+&\approx 0.9997
+\end{aligned}
+$$
 
-![](images/Slides_ML_Algorithms_les1_p11_img002.png)
+**Besluit:** $P(\text{spam} \mid \text{mt}) \approx 99.97\%$ → label = **spam** 🚫
 
-Dit is ‘naief’ !
+---
+
+## Meerdere woorden screenen — gegevens
+
+| Woord | $P(\text{woord} \mid \text{spam})$ | $P(\text{woord} \mid \neg\text{spam})$ |
+|-------|:---:|:---:|
+| 'moneytransfer' | $0.4$ | $0.0001$ |
+| 'uganda' | $0.1$ | $0.05$ |
+| 'AP Hogeschool' | $0.001$ | $0.3$ |
+
+**Vraag:** Een e-mail bevat **niet** 'moneytransfer', maar **wel** 'uganda' en 'AP Hogeschool'.  
+Wat is de kans op spam?
+
+---
+
+## Meerdere datapunten — berekening
+
+**Naieve aanname:** woorden zijn onafhankelijk → product van kansen
+
+**Voor spam:**
+$$P(\neg\text{mt} \mid \text{spam}) \times P(\text{ug} \mid \text{spam}) \times P(\text{ap} \mid \text{spam}) \times P(\text{spam})$$
+
+**Voor geen spam:**
+$$P(\neg\text{mt} \mid \neg\text{spam}) \times P(\text{ug} \mid \neg\text{spam}) \times P(\text{ap} \mid \neg\text{spam}) \times P(\neg\text{spam})$$
+
+> **Uiteindelijk:** kies het label met **grootste teller** — de noemer $P(\text{data})$ is voor beide gelijk, dus hoef je niet uit te rekenen!
+
+---
+
+```mermaid
+flowchart LR
+    subgraph Werkelijkheid["Werkelijkheid ❌"]
+        W1["moneytransfer ↔ uganda<br/>woorden hangen samen"]
+    end
+    subgraph Aanname["Naieve aanname ✅"]
+        A1["moneytransfer ⟂ uganda<br/>onafhankelijk behandeld"]
+    end
+```
 
 ---
 
 ## Naive Bayes Classifier
 
-• Waarom ‘naief’ ?
-• De kansen van woorden samen en woorden apart zijn niet onafhankelijk, eigenlijk beïnvloeden ze elkaar
-• In de praktijk werkt deze classifier vrij goed, dus we ‘negeren’ dit
-• Volgende stap: het trainen van de data flexibeler maken: de essentie van Machine
-Learning!
-• Dit gaan we doen in het Labo
+### Waarom "naief"?
+
+- De kansen van woorden **samen** en **apart** zijn niet onafhankelijk — in werkelijkheid beïnvloeden ze elkaar.
+- Toch werkt deze classifier **in de praktijk verrassend goed**, dus we negeren dit bezwaar.
+
+### Laplace-smoothing
+
+Als $P(x_i \mid y=k) = 0$ voor een label, wordt het hele product $0$.
+
+**Oplossing:** tel een kleine waarde $\delta$ op:
+
+$$P(x_i \mid y=k) = \frac{\delta + \#(x_i, y=k)}{\sum_j (\delta + \#(x_j, y=k))}$$
+
+- $\delta$ wordt bepaald via cross-validatie.
 
 ---
 
-## K-nearest neighbours
+### Implementatie in sklearn
 
-- KNN
+```python
+from sklearn.naive_bayes import BernoulliNB
+clf = BernoulliNB()
+clf.fit(X, Y)
+clf.predict(X[2:3])
+```
+
+> Volgende stap: het trainen van de data flexibeler maken → **Labo!**
+
+---
+<!-- _class: red-bg -->
+## K-Nearest Neighbours (KNN)
 
 ---
 
-## Wat bepaalt de prijs van een huis ?
+## Wat bepaalt de prijs van een huis?
+
+**Locatie, locatie en nog eens locatie!**
+
+```mermaid
+flowchart LR
+    Huis["🏠 Nieuw huis<br/>(prijs = ?)"] --> B1["📍 Buur 1: €350k"]
+    Huis --> B2["📍 Buur 2: €320k"]
+    Huis --> B3["📍 Buur 3: €370k"]
+    Huis --> B4["📍 Buur 4: €315k"]
+    B1 & B2 & B3 & B4 --> Gem["Gemiddelde ≈ €339k"]
+    Gem --> Prijs["➡️ Geschatte prijs: €339k"]
+```
+
+<!--
+💡 In de originele slides stonden hier 4 slides (14-17) met herhaling.
+    Dit Mermaid-diagram vat het hele concept in één slide!
+-->
 
 ---
 
-## Wat bepaalt de prijs van een huis ?
+## KNN — Basisidee
 
-?
+**Gelijkaardige dingen zijn dicht bij elkaar.**
+
+**Algoritme:**
+1. **Kies** $K$ = aantal buren om rekening mee te houden
+2. **Voor een nieuw punt:**
+   - Bereken de $K$ **dichtste** datapunten
+   - Het **meest voorkomende label** van die $K$ punten = voorspelling
+
+> 📌 Training kost nauwelijks tijd — maar **classificatie is traag** (veel afstanden berekenen)
+
+---
+```mermaid
+flowchart TD
+    Start["Nieuw datapunt x"] --> K["Kies K (aantal buren)"]
+    K --> Afstand["Bereken afstand tot<br/>alle train-data punten"]
+    Afstand --> Sorteer["Sorteer op afstand (↑)"]
+    Sorteer --> Selecteer["Selecteer K dichtste buren"]
+    Selecteer --> Stem["Stem: meest voorkomende<br/>label van K buren"]
+    Stem --> Predict["Voorspel label voor x"]
+```
+---
+
+## KNN — Eigenschappen (1)
+
+- **Supervised learning** — zowel binary als multiclass
+- Werkt **enkel** als er een notie van **afstand** is tussen datapunten
+- **Numerieke data:** normaliseren is **verplicht!**
+  - Anders krijgen features met grote waarden onbedoeld meer gewicht
+- **Categorische data:** zelf een metriek definiëren
+  - Bv. vogelvluchtafstand tussen steden, of **one-hot encoding**
 
 ---
 
-## Wat bepaalt de prijs van een huis ?
+## KNN — Eigenschappen (2)
 
-Locatie, locatie en nog eens locatie 350k 320k 370k 315kc
-? 340k
+- $K$ moet **op voorhand** gekozen worden
+  - Te kleine $K$ → gevoelig voor ruis (overfitting)
+  - Te grote $K$ → te veel middeling (underfitting)
+  - **Oplossing:** kies $K$ via **cross-validatie**
 
----
+- **Training:** goedkoop (enkel data opslaan) ✅
+- **Classificatie:** duur (alle afstanden berekenen) ❌
 
-## Wat bepaalt de prijs van een huis ?
-
-Locatie, locatie en nog eens locatie 350k 320k 370k 315k 339k
-
-![](images/Slides_ML_Algorithms_les1_p17_img001.jpeg)
-
-![](images/Slides_ML_Algorithms_les1_p17_img002.jpeg)
-
-340k
+> KNN is een **lazy learner** — er is geen echte trainingsfase.
 
 ---
 
-## KNN
-
-• Basisidee:
-• Gelijkaardige dingen zijn ‘dicht bij elkaar’
-• Het algoritme:
-• Kies K, het aantal ‘buren’ om rekening mee te houden
-• Voor een nieuw punt:
-• Bereken de K dichtste datapunten bij het nieuwe punt
-• Het meest voorkomende label van de K datapunten, is het voorspelde label voor een nieuw punt
-
----
-
-## KNN
-
-• Supervised learning algoritme
-• Kan zowel binary als multiclass classifier zijn
-• Werkt enkel als er een notie van ‘afstand’ is tussen datapunten
-• Ofwel enkel numerieke data
-• Let op normaliseren !!
-• Ofwel zelf een metriek gedefinieerd voor categorische data: een functie die voor elke 2 items van een lijst een afstand teruggeeft. Een metriek voor een kolom met steden zou bijvoorbeeld de afstand in vogelvlucht tussen die steden kunnen zijn
-• Je moet op voorhand weten wat het aantal k is. Hier gaan we dieper op in tijdens het labo.
-• Training kost nauwelijks tijd, maar classificatie is traag (omdat veel afstanden moeten worden berekend)
-
----
-
-## KNN visueel, voor data met 2 kolommen
+## KNN — Visueel (2 kolommen)
 
 ![](images/Slides_ML_Algorithms_les1_p20_img001.jpeg)
 
-• In het voorbeeld hier links is k = 5
-• Het algoritme vindt 4 rood en 1 groen label
-• het voorspelde label is rood voor het nieuwe datapunt
+- **$k = 5$**
+- Het algoritme vindt **4 rood** en **1 groen** label
+- ➡️ Voorspelling voor het nieuwe punt = **rood**
 
 ---
 
-## Implementatie met python en sklearn
+## Implementatie met Python & sklearn
 
-• Optie 1: zelf implementeren -> labo
-• Optie 2: scikit-learn library gebruiken (sklearn)
+**Optie 1 — Zelf implementeren (zie labo)**
+
+**Optie 2 — Scikit-learn:**
+
+```python
+from sklearn.neighbors import KNeighborsClassifier
+
+knn = KNeighborsClassifier(n_neighbors=5)
+knn.fit(X_train, y_train)
+predictions = knn.predict(X_test)
+```
+
+### Belangrijk!
+- ✅ Normaliseer features **vóór** KNN
+- ✅ Kies $K$ via cross-validatie, niet "op het gevoel"
+- ✅ Gebruik `.fit` / `.predict` — dit patroon komt overal terug in sklearn
