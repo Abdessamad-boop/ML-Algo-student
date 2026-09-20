@@ -1,7 +1,5 @@
 # Week 1 — Classificatie deel 1: Naive Bayes en KNN
 
-> Notebooks: `classification/naive bayes/naive_bayes_oplossingen.ipynb`, `classification/knn/knn_oplossingen.ipynb`
-
 ## Herhaling ML-basisbegrippen
 
 - **Classificatie** vs **clustering**; **supervised** (begeleid) vs **unsupervised** (onbegeleid).
@@ -81,7 +79,7 @@ Let op de `.fit`/`.predict`-structuur — dit komt overal terug.
 - K moet op voorhand gekozen worden.
 - Training kost nauwelijks tijd, maar classificatie is traag (veel afstanden berekenen).
 
-- Visueel (k=5): vindt het algoritme 4×rood en 1×groen, dan is de voorspelling rood.
+- Visueel (k=5): vindt het algoritme 4 × rood en 1 × groen, dan is de voorspelling rood.
 
 ### Implementatie (sklearn)
 
@@ -92,12 +90,12 @@ knn.fit(X_train, y_train)
 predictions = knn.predict(X_test)
 ```
 
-## Beste praktijken (Week 1)
+## Belangrijk bij implementatie (Week 1)
 
 - **Normaliseer** je features vóór KNN — afstanden zijn anders vertekend.
-- Kies K via cross-validatie, niet "op het gevoel".
+- Kies K via cross-validatie, niet "op het gevoel" - hier komen we later nog op terug.
 - Gebruik `.fit`/`.predict` via scikit-learn in plaats van zelf te implementeren, tenzij de oefening het vraagt.
-- Check dat categorische features een bruikbare metriek hebben of one-hot encoded worden.
+- Check dat categorische features een bruikbare metriek hebben of one-hot encoded worden. Op One-Hot encoding komen we later nog terug.
 
 ## Kernpunten
 
