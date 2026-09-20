@@ -1,0 +1,12 @@
+{
+  "python.pythonPath": "/usr/src/app/.venv/bin/python",
+  "editor.formatOnSave": true,
+  "python.linting.enabled": true,
+  "python.linting.pylintEnabled": true,
+  "python.linting.pylintArgs": [
+    "--disable=C0111" // Disable missing docstring warning
+  ],
+  "markdown.marp.themes": [
+    "themes/ap-theme.css"
+  ]
+}

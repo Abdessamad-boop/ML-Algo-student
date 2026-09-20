@@ -1,0 +1,16 @@
+# Checkpoint-definities per week.
+# week: naam van de matrix-job in .github/workflows/checkpoints.yml
+# notebook: opgave-notebook dat door de tests uitgevoerd wordt
+# testfile: pytest-module met de checks
+# deadline: optioneel, laatste inlevertijdstip (ISO-datum) voor permanente evaluatie
+checkpoints:
+  - week: week01
+    onderwerp: "Classificatie: Naive Bayes en KNN"
+    notebook: exercises_with_checks/week01/knn_checkpoint_opgave.ipynb
+    testfile: exercises_with_checks/checks/test_week01_knn.py
+    deadline: null
+  # - week: week02
+  #   onderwerp: "Classificatie: SVM"
+  #   notebook: exercises_with_checks/week02/svm_checkpoint_opgave.ipynb
+  #   testfile: exercises_with_checks/checks/test_week02_svm.py
+  #   deadline: null
