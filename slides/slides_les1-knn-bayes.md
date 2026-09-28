@@ -37,7 +37,11 @@ flowchart LR
 ```
 
 ---
+<<<<<<< HEAD
 ---
+=======
+
+>>>>>>> upstream/main
 <!-- _class: red-bg -->
 ## Scikit-learn
 
@@ -65,6 +69,13 @@ De standaard ML-bibliotheek voor Python
 
 ---
 
+<<<<<<< HEAD
+=======
+![](images/scikitlearn_cheat.png)
+
+---
+
+>>>>>>> upstream/main
 ## Consistent API: één patroon voor élk algoritme
 
 Elk schattingsalgoritme ("estimator") in scikit-learn volgt dezelfde structuur:
@@ -73,9 +84,15 @@ Elk schattingsalgoritme ("estimator") in scikit-learn volgt dezelfde structuur:
 from sklearn.xxxx import SomeModel
 
 model = SomeModel(hyperparameter=waarde)  # 1. Maak model
+<<<<<<< HEAD
 model.fit(X, y)                          # 2. Leer uit data
 model.predict(X_new)                     # 3. Voorspel
 model.score(X_test, y_test)              # 4. Evalueer
+=======
+model.fit(X, y)  # 2. Leer uit data
+model.predict(X_new)  # 3. Voorspel
+model.score(X_test, y_test)  # 4. Evalueer
+>>>>>>> upstream/main
 ```
 
 ```mermaid
@@ -109,6 +126,11 @@ Een eerste classifier
 
 ---
 
+<<<<<<< HEAD
+=======
+<!-- _class: interest-slide -->
+
+>>>>>>> upstream/main
 ## Naive Bayes — historische noot
 
 - **Thomas Bayes (1701–1761)** — Engelse predikant en wiskundige
@@ -117,6 +139,12 @@ Een eerste classifier
   - Herontdekte en generaliseerde Bayes' werk onafhankelijk → **Bayes–Laplace-stelling**
 
 ---
+<<<<<<< HEAD
+=======
+
+<!-- _class: interest-slide -->
+
+>>>>>>> upstream/main
 - **Eerste ML-toepassing:** M.E. Maron (1961) gebruikte Naive Bayes voor automatische indexering van documenten
   - [doi.org/10.1145/321075.321084](https://doi.org/10.1145/321075.321084)
 - **Spamfilter-revolutie (jaren 1990–2000):** Naive Bayes werd de standaard voor e-mail filtering
@@ -233,6 +261,7 @@ Wat is de kans op spam?
 
 ## Meerdere datapunten — berekening
 
+<<<<<<< HEAD
 **Naieve aanname:** woorden zijn onafhankelijk → product van kansen
 
 **Voor spam:**
@@ -254,6 +283,21 @@ flowchart LR
         A1["moneytransfer ⟂ uganda<br/>onafhankelijk behandeld"]
     end
 ```
+=======
+**Stap 1 — Bayes toepassen:**
+$$P(\text{spam} \mid \neg\text{mt}, \text{ug}, \text{ap}) = \frac{P(\neg\text{mt}, \text{ug}, \text{ap} \mid \text{spam}) \cdot P(\text{spam})}{P(\neg\text{mt}, \text{ug}, \text{ap})}$$
+
+**Stap 2 — Naïeve aanname: woorden zijn onafhankelijk**
+$$P(\neg\text{mt}, \text{ug}, \text{ap} \mid \text{spam}) = P(\neg\text{mt} \mid \text{spam}) \times P(\text{ug} \mid \text{spam}) \times P(\text{ap} \mid \text{spam})$$
+
+**Stap 3 — Samengevoegd voor spam:**
+$$P(\text{spam} \mid \neg\text{mt}, \text{ug}, \text{ap}) \propto P(\neg\text{mt} \mid \text{spam}) \times P(\text{ug} \mid \text{spam}) \times P(\text{ap} \mid \text{spam}) \times P(\text{spam})$$
+
+**Stap 4 — Idem voor geen spam:**
+$$P(\neg\text{spam} \mid \neg\text{mt}, \text{ug}, \text{ap}) \propto P(\neg\text{mt} \mid \neg\text{spam}) \times P(\text{ug} \mid \neg\text{spam}) \times P(\text{ap} \mid \neg\text{spam}) \times P(\neg\text{spam})$$
+
+> **Uiteindelijk:** kies het label met **grootste teller** — de noemer $P(\text{data})$ is voor beide gelijk, dus hoef je die niet uit te rekenen!
+>>>>>>> upstream/main
 
 ---
 
@@ -280,6 +324,10 @@ $$P(x_i \mid y=k) = \frac{\delta + \#(x_i, y=k)}{\sum_j (\delta + \#(x_j, y=k))}
 
 ```python
 from sklearn.naive_bayes import BernoulliNB
+<<<<<<< HEAD
+=======
+
+>>>>>>> upstream/main
 clf = BernoulliNB()
 clf.fit(X, Y)
 clf.predict(X[2:3])
@@ -292,6 +340,11 @@ clf.predict(X[2:3])
 ## K-Nearest Neighbours (KNN)
 
 ---
+<<<<<<< HEAD
+=======
+<!-- _class: interest-slide -->
+
+>>>>>>> upstream/main
 ## KNN — historische noot
 
 - **Fix & Hodges (1951)** — Eerste beschrijving van het "nearest neighbor"-beslissingsregel
@@ -299,6 +352,11 @@ clf.predict(X[2:3])
   - Zie: [en.wikipedia.org/wiki/K-nearest_neighbors_algorithm](https://en.wikipedia.org/wiki/K-nearest_neighbors_algorithm)
 - **Cover & Hart (1967)** — Baanbrekend artikel "Nearest neighbor pattern classification"
 ---
+<<<<<<< HEAD
+=======
+<!-- _class: interest-slide -->
+
+>>>>>>> upstream/main
   - Bewezen: met voldoende data is de fout van 1-NN **hoogstens 2× de Bayes-optimale fout**
   - [doi.org/10.1109/TIT.1967.1053964](https://doi.org/10.1109/TIT.1967.1053964)
 - **"Lazy learning"** — al in de jaren 1950 gekend: geen echte trainingsfase, alle data wordt opgeslagen
@@ -322,11 +380,14 @@ flowchart LR
     Gem --> Prijs["➡️ Geschatte prijs: €339k"]
 ```
 
+<<<<<<< HEAD
 <!--
 💡 In de originele slides stonden hier 4 slides (14-17) met herhaling.
     Dit Mermaid-diagram vat het hele concept in één slide!
 -->
 
+=======
+>>>>>>> upstream/main
 ---
 
 ## KNN — Basisidee
@@ -380,7 +441,20 @@ flowchart TD
 
 ## KNN — Visueel (2 kolommen)
 
+<<<<<<< HEAD
 ![](images/Slides_ML_Algorithms_les1_p20_img001.jpeg)
+=======
+```mermaid
+flowchart LR
+    A["🔴 Punt 1<br/>(dichtstbij)"] -->|"k=5"| N{"❓ Nieuw<br/>punt"}
+    B["🟢 Punt 2"] --> N
+    C["🔴 Punt 3"] --> N
+    D["🔴 Punt 4"] --> N
+    E["🔴 Punt 5<br/>(verst)"] --> N
+    N --> Result["Stemming: 4×🔴 , 1×🟢"]
+    Result --> Predict["➡️ Voorspelling: 🔴"]
+```
+>>>>>>> upstream/main
 
 - **$k = 5$**
 - Het algoritme vindt **4 rood** en **1 groen** label
