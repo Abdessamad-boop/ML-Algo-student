@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 """Shared pytest fixture: voert het student-notebook uit en geeft de namespace terug."""
 import nbformat
 import pytest
@@ -38,7 +38,7 @@ def _notebook_namespace(week: str) -> dict:
 @pytest.fixture(scope="session")
 def week01():
     return _notebook_namespace("week01")
-=======
+
 """Shared pytest fixture: voert het student-notebook uit en geeft de namespace terug."""
 import nbformat
 import pytest
