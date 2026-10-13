@@ -7,7 +7,6 @@ dependencies = [
     "numpy>=1.26",
     "pandas>=2.2",
     "scipy>=1.15",
-
     # ML basics
     "scikit-learn>=1.6,<2.0",
     "xgboost>=2.0,<3.0",
