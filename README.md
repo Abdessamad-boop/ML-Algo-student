@@ -9,24 +9,6 @@ Oefeningen en labs voor het vak **Machine Learning Algorithms (AP, 2e jaar)**.
 
 ***
 
-<<<<<<< HEAD
-# ✅ Werken met de devcontainer (aanbevolen)
-
-Deze repo gebruikt een **Dev Container** zodat je niets lokaal hoeft te installeren.
-
-## Stap 1 – Open in VS Code
-
-1. Open de folder in VS Code
-2. Installeer de extensie: **Dev Containers**
-3. Klik op:  
-   **"Reopen in Container"**
-
-De omgeving wordt automatisch opgebouwd.
-
-***
-
-## Stap 2 – Werken met notebooks
-=======
 ## Overzicht setup met een devcontainer
 
 In deze handleiding leer je stap voor stap:
@@ -186,7 +168,6 @@ Doe dit voor elke les zodat je altijd de laatste versie hebt.
 ***
 
 ## Werken met notebooks
->>>>>>> upstream/main
 
 * Open een `.ipynb` bestand
 * Kies de Python kernel (in de container)
@@ -196,15 +177,9 @@ Je hoeft **geen Jupyter server zelf te starten**
 
 ***
 
-<<<<<<< HEAD
-## ✅ Extra packages installeren (optioneel)
-
-De container start **minimal en snel**.  
-=======
 ## Extra packages installeren (nodig in een later stuk van de cursus)
 
 De container start **minimaal en snel**.  
->>>>>>> upstream/main
 Heb je extra libraries nodig, installeer ze on-demand:
 
 ### Deep learning
@@ -227,64 +202,20 @@ uv pip install -r requirements-advanced.txt
 
 ***
 
-<<<<<<< HEAD
-## ✅ Waarom deze aanpak
-=======
 ## Waarom deze aanpak
->>>>>>> upstream/main
 
-* Snelle startup (geen zware installs)
-* Minder fouten bij setup
-* Flexibel: installeer enkel wat je nodig hebt
-
-***
 
 <<<<<<< HEAD
 # ⚠️ Problemen oplossen
 
 ## OpenCV error (cv2)
-
-=======
-# Problemen oplossen
-
-## OpenCV error (cv2)
->>>>>>> upstream/main
 Indien je een fout krijgt zoals:
-`libGL.so.1 not found`
-
-Voer uit in de container:
-<<<<<<< HEAD
-
-=======
 >>>>>>> upstream/main
 ```bash
-apt-get update && apt-get install -y libgl1
-```
 
 ***
 
-<<<<<<< HEAD
-## Build errors (zeldzaam)
-
-* Herbouw container:
-  ```
-  Rebuild Container
-  ```
-* Verwijder eventueel oude containers
-=======
-
->>>>>>> upstream/main
-
-
-# 🧪 Oefeningen
-
-<<<<<<< HEAD
-## Fork de repository
-
-1. **Fork** deze repository naar je eigen GitHub-account via de **Fork**-knop rechtsboven.
-2. **Clone** jouw fork naar je lokale machine.
 3. Werk de oefeningen uit in de notebooks en **commit & push** je oplossingen naar jouw fork.
-
 =======
 >>>>>>> upstream/main
 ## Automatische feedback (via GitHub Actions)
